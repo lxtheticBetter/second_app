@@ -1,22 +1,27 @@
 import 'package:flutter/material.dart';
+import 'package:second_app/pages/home_screen.dart';
+import 'package:second_app/pages/login_screen.dart';
+import 'package:second_app/utils/routes.dart';
+import 'package:second_app/utils/themes.dart';
 
 void main() {
-  runApp(myApp());
+  runApp(const MyApp());
 }
 
-class myApp extends StatelessWidget {
-  const myApp({Key? key}) : super(key: key);
+class MyApp extends StatelessWidget {
+  const MyApp({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: Material(
-        child: Center(
-          child: Container(
-            child: const Text('First App'),
-          ),
-        ),
-      ),
+      // home: HomePage(),
+      theme: CustomTheme.lightTheme(context),
+      // darkTheme: CustomTheme.darkTheme(context),
+      initialRoute: '/home/',
+      routes: {
+        Routes.homeScreen: (context) => const HomeScreen(),
+        Routes.loginRoute: (context) => const LoginScreen()
+      },
     );
   }
 }
