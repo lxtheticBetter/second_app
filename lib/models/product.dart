@@ -21,17 +21,15 @@ class Product {
     // required this.count,
   });
 
-  factory Product.fromJson(Map<String, dynamic> json) {
-    return Product(
-      id: json['id'] as num,
-      title: json['title'] as String,
-      price: json['price'] as num,
-      description: json['description'] as String,
-      category: json['category'] as String,
-      image: json['image'] as String,
-      rating: json['rating'] as Map<String, dynamic>,
-      // rate: json['rate'] as double,
-      // count: json['count'] as int,
-    );
-  }
+  factory Product.fromJson(Map<String, dynamic> json) => Product(
+        id: json['id'] as num,
+        title: json['title'] as String,
+        price: json['price'] as num,
+        description: json['description'] as String,
+        category: json['category'] as String,
+        image: json['image'] as String,
+        rating: json['rating'] as Map<String, dynamic>,
+        // rate: json['rate'] as double,
+        // count: json['count'] as int,
+      );
 }
