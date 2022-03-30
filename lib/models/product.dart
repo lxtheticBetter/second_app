@@ -1,3 +1,12 @@
+class ProductMethods {
+  static late List<Product> product;
+
+  Product getById(int id) => product.firstWhere(
+        (elem) => elem.id == id,
+        orElse: null,
+      );
+}
+
 class Product {
   final num id;
   final String title;

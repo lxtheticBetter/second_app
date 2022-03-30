@@ -1,11 +1,16 @@
 import 'dart:convert';
+import 'package:flutter/cupertino.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
+import 'package:second_app/utils/routes.dart';
+import 'package:second_app/utils/themes.dart';
 import 'package:second_app/widgets/drawer.dart';
 import 'package:second_app/widgets/product_widget.dart';
 import '../models/product.dart';
-import '../utils/themes.dart';
+// import '../utils/themes.dart';
+import 'home_widgets/products_list.dart';
+import 'home_widgets/products_screen_header.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -18,7 +23,8 @@ class _HomeScreenState extends State<HomeScreen> {
   bool isLoading = true;
   late List _products;
   late List _mappedProduct;
-  final url = 'http://192.168.1.206:3001/';
+  final url = 'http://192.168.1.206:3001/'; //office
+  // final url = 'http://192.168.1.5:3001/'; //home
 
   void fetchData() async {
     final response = await http.get(Uri.parse(url));
@@ -45,6 +51,11 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Theme.of(context).canvasColor,
+      floatingActionButton: FloatingActionButton(
+        onPressed: () => Navigator.pushNamed(context, Routes.cartRoute),
+        child: const Icon(CupertinoIcons.cart),
+      ),
 /*       appBar: AppBar(
         title: const Text(
           'Products',
@@ -71,7 +82,7 @@ class _HomeScreenState extends State<HomeScreen> {
           SafeArea(
               child: Column(
                 children: [
-                  const ProductsPageHeader(),
+                  ProductsScreenHeader(resultCount: _products.length),
 /*                   GridView.builder(
                     scrollDirection: Axis.vertical,
                     shrinkWrap: true,
@@ -109,140 +120,6 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ),
       drawer: const HomeDrawer(),
-    );
-  }
-}
-
-class ProductsPageHeader extends StatelessWidget {
-  const ProductsPageHeader({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(15),
-      alignment: Alignment.centerLeft,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: const [
-          Text(
-            'Products',
-            style: TextStyle(
-              fontWeight: FontWeight.bold,
-              fontSize: 40,
-              color: CustomTheme.darkColor,
-            ),
-          ),
-          Text(
-            'Trending Products',
-            style: TextStyle(
-              color: CustomTheme.darkColor,
-              fontSize: 16,
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class ProductsList extends StatelessWidget {
-  final List products;
-  const ProductsList({Key? key, required this.products}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return ListView.builder(
-      padding: const EdgeInsets.all(10),
-      scrollDirection: Axis.vertical,
-      shrinkWrap: true,
-      itemCount: products.length,
-      itemBuilder: (context, i) {
-        return ProductItem(productItem: products[i]);
-      },
-    );
-  }
-}
-
-class ProductItem extends StatelessWidget {
-  final Product productItem;
-  const ProductItem({Key? key, required this.productItem}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 6.0),
-      child: Card(
-        elevation: 0,
-        shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.all(
-            Radius.circular(10),
-          ),
-        ),
-        child: Container(
-          height: 140,
-          padding: const EdgeInsets.only(right: 20),
-          child: Row(
-            children: [
-              Container(
-                padding: const EdgeInsets.all(10),
-                child: Image.network(
-                  productItem.image,
-                  width: 80,
-                  height: 100,
-                  fit: BoxFit.contain,
-                ),
-              ),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.only(top: 10, bottom: 2),
-                      child: Text(
-                        productItem.title,
-                        overflow: TextOverflow.ellipsis,
-                        style: const TextStyle(
-                          fontWeight: FontWeight.bold,
-                          color: CustomTheme.darkColor,
-                          fontSize: 16,
-                        ),
-                      ),
-                    ),
-                    Text(
-                      productItem.description,
-                      overflow: TextOverflow.ellipsis,
-                      maxLines: 2,
-                      // softWrap: false,
-                      style:
-                          const TextStyle(fontSize: 11, color: Colors.black54),
-                    ),
-                    ButtonBar(
-                      alignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          '\$${productItem.price.toString()}',
-                          style: const TextStyle(
-                            fontWeight: FontWeight.bold,
-                            color: CustomTheme.darkColor,
-                          ),
-                        ),
-                        ElevatedButton(
-                            onPressed: () {},
-                            style: ButtonStyle(
-                              backgroundColor: MaterialStateProperty.all(
-                                  CustomTheme.darkColor),
-                            ),
-                            child: const Text('Buy'))
-                      ],
-                    )
-                  ],
-                ),
-              )
-            ],
-          ),
-        ),
-      ),
     );
   }
 }

@@ -4,7 +4,14 @@ import 'package:google_fonts/google_fonts.dart';
 class CustomTheme {
   static ThemeData lightTheme(BuildContext context) => ThemeData(
         fontFamily: GoogleFonts.poppins().fontFamily,
-        scaffoldBackgroundColor: Color.fromARGB(255, 241, 241, 241),
+        // scaffoldBackgroundColor: const Color.fromRGBO(241, 241, 241, 1),
+        cardColor: Colors.white,
+        canvasColor: bgColor,
+        secondaryHeaderColor: subText,
+        floatingActionButtonTheme: FloatingActionButtonThemeData(
+          backgroundColor: darkColor,
+          foregroundColor: Colors.white,
+        ),
         appBarTheme: AppBarTheme(
           color: Colors.white,
           elevation: 0,
@@ -18,8 +25,35 @@ class CustomTheme {
         ),
       );
 
-  static ThemeData darkTheme(BuildContext context) =>
-      ThemeData(brightness: Brightness.dark);
+  static ThemeData darkTheme(BuildContext context) => ThemeData(
+        fontFamily: GoogleFonts.poppins().fontFamily,
+        brightness: Brightness.dark,
+        // scaffoldBackgroundColor: Colors.white12,
+        cardColor: Colors.black,
+        canvasColor: darkCreamColor,
+        floatingActionButtonTheme: FloatingActionButtonThemeData(
+          backgroundColor: Colors.indigo.shade400,
+          foregroundColor: Colors.white,
+        ),
+        primaryColor: Colors.white,
+        secondaryHeaderColor: Colors.white60,
+        appBarTheme: AppBarTheme(
+          color: Colors.black87,
+          elevation: 0,
+          iconTheme: const IconThemeData(color: Colors.white),
+          toolbarTextStyle: const TextStyle(color: Colors.white),
+          titleTextStyle: TextStyle(
+            color: Colors.white,
+            fontSize: 20,
+            fontFamily: GoogleFonts.poppins().fontFamily,
+          ),
+        ),
+      );
 
-  static const darkColor = Color.fromRGBO(0, 46, 88, 1);
+  static Color darkColor = const Color.fromRGBO(0, 27, 53, 1);
+  static Color bgColor = const Color.fromRGBO(241, 241, 241, 1);
+  static Color subText = Colors.black54;
+
+  static Color darkCreamColor = Colors.grey.shade900;
+  static Color lightBluishColor = Colors.purple.shade200;
 }

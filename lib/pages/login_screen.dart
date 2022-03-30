@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:second_app/utils/routes.dart';
+import 'package:second_app/utils/themes.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -20,7 +21,7 @@ class _LoginScreenState extends State<LoginScreen> {
         changedButton = true;
       });
       await Future.delayed(const Duration(seconds: 1));
-      await Navigator.pushNamed(context, Routes.homeScreen);
+      await Navigator.pushNamed(context, Routes.homeScreenRoute);
       setState(() {
         changedButton = false;
       });
@@ -30,7 +31,7 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Material(
-      color: const Color.fromRGBO(255, 255, 255, 1),
+      color: Theme.of(context).canvasColor,
       /* appBar: AppBar(
         title: const Text('Login'),
       ), */
@@ -97,7 +98,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       padding: const EdgeInsets.only(top: 30),
                       child: Material(
                         borderRadius: BorderRadius.circular(30),
-                        color: const Color.fromRGBO(0, 140, 255, 1),
+                        color: CustomTheme.darkColor,
                         child: InkWell(
                           splashColor: const Color.fromRGBO(50, 163, 255, 1),
                           onTap: () => moveToHome(context),
